@@ -304,7 +304,7 @@ def getPlayStickerMessage():
 #     return message
 
 
-def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/taipei_101.jpeg"):
+def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
     return getImageMessage(originalContentUrl)
 
 
