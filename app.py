@@ -45,24 +45,24 @@ def index():
             if events[0]["message"]["type"] == "text":
                 text = events[0]["message"]["text"]
 
-                # if text == "我的名":
-                payload["messages"] = [getNameEmojiMessage()]
-                # elif text == "圖片":
-                payload["messages"] = [getCockroachImageMessage()]
-                # elif text == "quoda":
-                #     payload["messages"] = [
-                #             {
-                #                 "type": "text",
-                #                 "text": getTotalSentMessageCount()
-                #             }
-                #         ]
-                # else:
-                #     payload["messages"] = [
-                #             {
-                #                 "type": "text",
-                #                 "text": text
-                #             }
-                #         ]
+                if text == "我的名":
+                    payload["messages"] = [getNameEmojiMessage()]
+                elif text == "圖片":
+                    payload["messages"] = [getCockroachImageMessage()]
+                elif text == "quoda":
+                    payload["messages"] = [
+                            {
+                                "type": "text",
+                                "text": getTotalSentMessageCount()
+                            }
+                        ]
+                else:
+                    payload["messages"] = [
+                            {
+                                "type": "text",
+                                "text": text
+                            }
+                        ]
                 replyMessage(payload)
             else:
                 data = json.loads(events[0]["postback"]["data"])
