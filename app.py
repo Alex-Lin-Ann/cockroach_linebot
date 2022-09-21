@@ -50,9 +50,10 @@ def index():
                 elif text == "出去玩囉":
                     payload["messages"] = [getPlayStickerMessage()]
                 elif text == "台北101":
-                    payload["messages"] = [getTaipei101ImageMessage(),
-                                           getTaipei101LocationMessage(),
-                                           getMRTVideoMessage()]
+                    payload["messages"] = [getTaipei101ImageMessage()
+                                        #    getTaipei101LocationMessage(),
+                                        #    getMRTVideoMessage()]
+                    ]
                 elif text == "quoda":
                     payload["messages"] = [
                             {
@@ -195,7 +196,7 @@ def getCarouselMessage(data):
           "type": "image_carousel",
           "columns": [
               {
-                "imageUrl": F"{end_point}/static/taipei_101.jpeg",
+                "imageUrl": F"{end_point}/static/taipei_1.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -203,7 +204,7 @@ def getCarouselMessage(data):
                 }
               },
               {
-                "imageUrl": F"{end_point}/static/taipei_101.jpeg",
+                "imageUrl": F"{end_point}/static/taipei_1.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -285,7 +286,7 @@ def getMRTVideoMessage():
     message = {
       "type": "video",
       "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
-      "previewImageUrl": F"{end_point}/static/taipei_101.jpeg"
+      "previewImageUrl": F"{end_point}/static/taipei_1.jpeg"
     }
     return message
 
