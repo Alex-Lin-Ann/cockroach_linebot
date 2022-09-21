@@ -103,7 +103,7 @@ def sendTextMessageToMe():
 def getNameEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     productId = "5ac21a8c040ab15980c9b43f"
-    name = "Alex"
+    name = "Cockroach"
     message = dict()
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
@@ -150,65 +150,9 @@ def getTotalSentMessageCount():
     print(r.json())
     return r.json()['totalUsage']
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-
-# @app.route('/upload_file', methods=['POST'])
-# def upload_file():
-#     payload = dict()
-#     if request.method == 'POST':
-#         file = request.files['file']
-#         print("json:", request.json)
-#         form = request.form
-#         age = form['age']
-#         gender = ("男" if form['gender'] == "M" else "女") + "性"
-#         if file:
-#             filename = file.filename
-#             img_path = os.path.join(UPLOAD_FOLDER, filename)
-#             file.save(img_path)
-#             print(img_path)
-#             payload["to"] = my_line_id
-#             payload["messages"] = [getImageMessage(F"{end_point}/{img_path}"),
-#                 {
-#                     "type": "text",
-#                     "text": F"年紀：{age}\n性別：{gender}"
-#                 }
-#             ]
-#             pushMessage(payload)
-#     return 'OK'
-
-
-# @app.route('/line_login', methods=['GET'])
-# def line_login():
-#     if request.method == 'GET':
-#         code = request.args.get("code", None)
-#         state = request.args.get("state", None)
-
-        # if code and state:
-        #     HEADERS = {'Content-Type': 'application/x-www-form-urlencoded'}
-        #     url = "https://api.line.me/oauth2/v2.1/token"
-        #     FormData = {"grant_type": 'authorization_code', "code": code, "redirect_uri": F"{end_point}/line_login", "client_id": line_login_id, "client_secret":line_login_secret}
-        #     data = parse.urlencode(FormData)
-        #     content = requests.post(url=url, headers=HEADERS, data=data).text
-        #     content = json.loads(content)
-        #     url = "https://api.line.me/v2/profile"
-        #     HEADERS = {'Authorization': content["token_type"]+" "+content["access_token"]}
-        #     content = requests.get(url=url, headers=HEADERS).text
-        #     content = json.loads(content)
-        #     name = content["displayName"]
-        #     userID = content["userId"]
-        #     pictureURL = content["pictureUrl"]
-        #     statusMessage = content["statusMessage"]
-        #     print(content)
-        #     return render_template('profile.html', name=name, pictureURL=
-        #                            pictureURL, userID=userID, statusMessage=
-        #                            statusMessage)
-        # else:
-        #     return render_template('login.html', client_id=line_login_id,
-        #                            end_point=end_point)
-
+# def allowed_file(filename):
+#     return '.' in filename and \
+#            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 if __name__ == "__main__":
     app.debug = True
