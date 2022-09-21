@@ -105,34 +105,35 @@ def index():
                             }
                         ]
                 replyMessage(payload)
-            elif events[0]["message"]["type"] == "location":
-                title = events[0]["message"]["title"]
-                latitude = events[0]["message"]["latitude"]
-                longitude = events[0]["message"]["longitude"]
-                payload["messages"] = [getLocationConfirmMessage(title, latitude, longitude)]
-                replyMessage(payload)
-        elif events[0]["type"] == "postback":
-            if "params" in events[0]["postback"]:
-                reservedTime = events[0]["postback"]["params"]["datetime"].replace("T", " ")
-                payload["messages"] = [
-                        {
-                            "type": "text",
-                            "text": F"已完成預約於{reservedTime}的叫車服務"
-                        }
-                    ]
-                replyMessage(payload)
+            # elif events[0]["message"]["type"] == "location":
+            #     title = events[0]["message"]["title"]
+            #     latitude = events[0]["message"]["latitude"]
+            #     longitude = events[0]["message"]["longitude"]
+            #     payload["messages"] = [getLocationConfirmMessage(title, latitude, longitude)]
+            #     replyMessage(payload)
+        # elif events[0]["type"] == "postback":
+        #     if "params" in events[0]["postback"]:
+        #         reservedTime = events[0]["postback"]["params"]["datetime"].replace("T", " ")
+        #         payload["messages"] = [
+        #                 {
+        #                     "type": "text",
+        #                     "text": F"已完成預約於{reservedTime}的叫車服務"
+        #                 }
+        #             ]
+                # replyMessage(payload)
             else:
                 data = json.loads(events[0]["postback"]["data"])
                 action = data["action"]
                 if action == "get_near":
                     data["action"] = "get_detail"
-                    payload["messages"] = [getCarouselMessage(data)]
+                    # payload["messages"] = [getCarouselMessage(data)]
                 elif action == "get_detail":
                     del data["action"]
                     payload["messages"] = [getTaipei101ImageMessage(),
-                                           getTaipei101LocationMessage(),
-                                           getMRTVideoMessage(),
-                                           getCallCarMessage(data)]
+                                        #    getTaipei101LocationMessage(),
+                                        #    getMRTVideoMessage(),
+                                        #    getCallCarMessage(data)]
+                    ]
                 replyMessage(payload)
 
     return 'OK'
@@ -188,79 +189,79 @@ def getNameEmojiMessage():
     return message
 
 
-def getCarouselMessage(data):
-    message = {
-      "type": "template",
-      "altText": "this is a image carousel template",
-      "template": {
-          "type": "image_carousel",
-          "columns": [
-              {
-                "imageUrl": F"{end_point}/static/taipei_1.jpeg",
-                "action": {
-                  "type": "postback",
-                  "label": "台北101",
-                  "data": json.dumps(data)
-                }
-              },
-              {
-                "imageUrl": F"{end_point}/static/taipei_1.jpeg",
-                "action": {
-                  "type": "postback",
-                  "label": "台北101",
-                  "data": json.dumps(data)
-                }
-              }
-          ]
-          }
-        }
-    return message
+# def getCarouselMessage(data):
+#     message = {
+#       "type": "template",
+#       "altText": "this is a image carousel template",
+#       "template": {
+#           "type": "image_carousel",
+#           "columns": [
+#               {
+#                 "imageUrl": F"{end_point}/static/taipei_1.jpeg",
+#                 "action": {
+#                   "type": "postback",
+#                   "label": "台北101",
+#                   "data": json.dumps(data)
+#                 }
+#               },
+#               {
+#                 "imageUrl": F"{end_point}/static/taipei_1.jpeg",
+#                 "action": {
+#                   "type": "postback",
+#                   "label": "台北101",
+#                   "data": json.dumps(data)
+#                 }
+#               }
+#           ]
+#           }
+#         }
+#     return message
 
 
-def getLocationConfirmMessage(title, latitude, longitude):
-    data = {'title': title, 'latitude': latitude, 'longitude': longitude,
-            'action': 'get_near'}
-    message = {
-      "type": "template",
-      "altText": "this is a confirm template",
-      "template": {
-          "type": "confirm",
-          "text": f"確認是否搜尋 {title} 附近地點？",
-          "actions": [
-              {
-                 "type": "postback",
-               "label": "是",
-               "data": json.dumps(data),
-               },
-              {
-                "type": "message",
-                "label": "否",
-                "text": "否"
-              }
-          ]
-      }
-    }
-    return message
+# def getLocationConfirmMessage(title, latitude, longitude):
+#     data = {'title': title, 'latitude': latitude, 'longitude': longitude,
+#             'action': 'get_near'}
+#     message = {
+#       "type": "template",
+#       "altText": "this is a confirm template",
+#       "template": {
+#           "type": "confirm",
+#           "text": f"確認是否搜尋 {title} 附近地點？",
+#           "actions": [
+#               {
+#                  "type": "postback",
+#                "label": "是",
+#                "data": json.dumps(data),
+#                },
+#               {
+#                 "type": "message",
+#                 "label": "否",
+#                 "text": "否"
+#               }
+#           ]
+#       }
+#     }
+#     return message
 
 
-def getCallCarMessage(data):
-    message = {
-      "type": "template",
-      "altText": "this is a template",
-      "template": {
-          "type": "buttons",
-          "text": f"請選擇至 {data['title']} 預約叫車時間",
-          "actions": [
-              {
-               "type": "datetimepicker",
-               "label": "預約",
-               "data": json.dumps(data),
-               "mode": "datetime"
-               }
-          ]
-      }
-    }
-    return message
+# def getCallCarMessage(data):
+#     message = {
+#       "type": "template",
+#       "altText": "this is a template",
+#       "template": {
+#           "type": "buttons",
+#           "text": f"請選擇至 {data['title']} 預約叫車時間",
+#           "actions": [
+#               {
+#                "type": "datetimepicker",
+#                "label": "預約",
+#                "data": json.dumps(data),
+#                "mode": "datetime"
+#                }
+#           ]
+#       }
+#     }
+#     return message
 
 
 def getPlayStickerMessage():
@@ -271,36 +272,36 @@ def getPlayStickerMessage():
     return message
 
 
-def getTaipei101LocationMessage():
-    message = {
-      "type": "location",
-      "title": "台北101",
-      "address": "110台北市信義區市府路45號",
-      "latitude": 25.034127,
-      "longitude": 121.5618272
-    }
-    return message
+# def getTaipei101LocationMessage():
+#     message = {
+#       "type": "location",
+#       "title": "台北101",
+#       "address": "110台北市信義區市府路45號",
+#       "latitude": 25.034127,
+#       "longitude": 121.5618272
+#     }
+#     return message
 
 
-def getMRTVideoMessage():
-    message = {
-      "type": "video",
-      "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
-      "previewImageUrl": F"{end_point}/static/taipei_1.jpeg"
-    }
-    return message
+# def getMRTVideoMessage():
+#     message = {
+#       "type": "video",
+#       "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
+#       "previewImageUrl": F"{end_point}/static/taipei_1.jpeg"
+#     }
+#     return message
 
 
-def getMRTSoundMessage():
-    message = dict()
-    message["type"] = "audio"
-    message["originalContentUrl"] = F"{end_point}/static/mrt_sound.m4a"
-    import audioread
-    with audioread.audio_open('static/mrt_sound.m4a') as f:
-        # totalsec contains the length in float
-        totalsec = f.duration
-    message["duration"] = totalsec * 1000
-    return message
+# def getMRTSoundMessage():
+#     message = dict()
+#     message["type"] = "audio"
+#     message["originalContentUrl"] = F"{end_point}/static/mrt_sound.m4a"
+#     import audioread
+#     with audioread.audio_open('static/mrt_sound.m4a') as f:
+#         # totalsec contains the length in float
+#         totalsec = f.duration
+#     message["duration"] = totalsec * 1000
+#     return message
 
 
 def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/taipei_1.jpeg"):
