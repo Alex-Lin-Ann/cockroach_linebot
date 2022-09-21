@@ -45,17 +45,17 @@ def index():
             if events[0]["message"]["type"] == "text":
                 text = events[0]["message"]["text"]
 
-                if text == "我的名":
+                if text == "myname":
                     payload["messages"] = [getNameEmojiMessage()]
                 elif text == "圖片":
                     payload["messages"] = [getCockroachImageMessage()]
-                elif text == "quoda":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTotalSentMessageCount()
-                            }
-                        ]
+                # elif text == "quoda":
+                #     payload["messages"] = [
+                #             {
+                #                 "type": "text",
+                #                 "text": getTotalSentMessageCount()
+                #             }
+                #         ]
                 else:
                     payload["messages"] = [
                             {
