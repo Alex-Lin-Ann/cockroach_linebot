@@ -47,7 +47,7 @@ def index():
 
                 if text == "myname":
                     payload["messages"] = [getNameEmojiMessage()]
-                elif text == "圖片":
+                # elif text == "圖片":
                     payload["messages"] = [getCockroachImageMessage()]
                 else:
                     payload["messages"] = [
@@ -68,23 +68,6 @@ def index():
                 replyMessage(payload)
 
     return 'OK'
-
-
-# @app.route("/callback", methods=['POST'])
-# def callback():
-#     print('callback')
-#     signature = request.headers['X-Line-Signature']
-#     body = request.get_data(as_text=True)
-#     app.logger.info("Request body: " + body)
-
-#     try:
-#         handler.handle(body, signature)
-
-#     except InvalidSignatureError:
-#         abort(400)
-
-#     return 'OK'
-
 
 @handler.add(MessageEvent, message=TextMessage)
 def pretty_echo(event):
