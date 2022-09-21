@@ -195,7 +195,7 @@ def getCarouselMessage(data):
           "type": "image_carousel",
           "columns": [
               {
-                "imageUrl": F"{end_point}/static/taipei_101.jpeg",
+                "imageUrl": F"{end_point}/static/cockroach.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -203,7 +203,7 @@ def getCarouselMessage(data):
                 }
               },
               {
-                "imageUrl": F"{end_point}/static/taipei_1.jpeg",
+                "imageUrl": F"{end_point}/static/cockroach.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -285,7 +285,7 @@ def getMRTVideoMessage():
     message = {
       "type": "video",
       "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
-      "previewImageUrl": F"{end_point}/static/taipei_101.jpeg"
+      "previewImageUrl": F"{end_point}/static/cockroach.jpeg"
     }
     return message
 
@@ -302,7 +302,7 @@ def getMRTSoundMessage():
     return message
 
 
-def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/taipei_101.jpeg"):
+def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
     return getImageMessage(originalContentUrl)
 
 
@@ -334,13 +334,13 @@ def getTotalSentMessageCount():
     return r.json()['totalUsage']
 
 
-def getTodayCovid19Message():
-    r = requests.get('https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=3001&limited=BGD', headers=HEADER)
-    data = r.json()[0]
-    date = data['a04']
-    total_count = data['a05']
-    count = data['a06']
-    return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
+# def getTodayCovid19Message():
+#     r = requests.get('https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=3001&limited=BGD', headers=HEADER)
+#     data = r.json()[0]
+#     date = data['a04']
+#     total_count = data['a05']
+#     count = data['a06']
+#     return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
 
 
 def allowed_file(filename):
