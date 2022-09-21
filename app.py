@@ -46,9 +46,10 @@ def index():
                 text = events[0]["message"]["text"]
 
                 if text == "myname":
-                    payload["messages"] = [getNameEmojiMessage(),getCockroachImageMessage()]
-                # elif text == "圖片":
-                    # payload["messages"] = [getCockroachImageMessage()]
+                    payload["messages"] = [getNameEmojiMessage(),
+                                        getCockroachImageMessage(),
+                                        getCockEmojiMessage()
+                                        ]
                 else:
                     payload["messages"] = [
                             {
@@ -87,6 +88,25 @@ def getNameEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     productId = "5ac21a8c040ab15980c9b43f"
     name = "Cockroach"
+    message = dict()
+    message["type"] = "text"
+    message["text"] = "".join("$" for r in range(len(name)))
+    emojis_list = list()
+    for i, nChar in enumerate(name):
+        emojis_list.append(
+            {
+              "index": i,
+              "productId": productId,
+              "emojiId": f"{lookUpStr.index(nChar) + 1 :03}"
+            }
+        )
+    message["emojis"] = emojis_list
+    return message
+
+def getCockEmojiMessage():
+    lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+    productId = "5ac21a8c040ab15980c9b43f"
+    name = "Find"
     message = dict()
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
