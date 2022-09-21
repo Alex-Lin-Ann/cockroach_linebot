@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
 import requests
 import json
 import configparser
@@ -49,7 +49,7 @@ def index():
                     payload["messages"] = [getNameEmojiMessage()]
                 elif text == "出去玩囉":
                     payload["messages"] = [getPlayStickerMessage()]
-                elif text == "台北101":
+                elif text == "圖片":
                     payload["messages"] = [getTaipei101ImageMessage()
                                         #    getTaipei101LocationMessage(),
                                         #    getMRTVideoMessage()]
@@ -129,7 +129,7 @@ def index():
                     # payload["messages"] = [getCarouselMessage(data)]
                 elif action == "get_detail":
                     del data["action"]
-                    payload["messages"] = [getTaipei101ImageMessage(),
+                    payload["messages"] = [getTaipei101ImageMessage()
                                         #    getTaipei101LocationMessage(),
                                         #    getMRTVideoMessage(),
                                         #    getCallCarMessage(data)]
