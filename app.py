@@ -70,20 +70,20 @@ def index():
     return 'OK'
 
 
-@app.route("/callback", methods=['POST'])
-def callback():
-    print('callback')
-    signature = request.headers['X-Line-Signature']
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+# @app.route("/callback", methods=['POST'])
+# def callback():
+#     print('callback')
+#     signature = request.headers['X-Line-Signature']
+#     body = request.get_data(as_text=True)
+#     app.logger.info("Request body: " + body)
 
-    try:
-        handler.handle(body, signature)
+#     try:
+#         handler.handle(body, signature)
 
-    except InvalidSignatureError:
-        abort(400)
+#     except InvalidSignatureError:
+#         abort(400)
 
-    return 'OK'
+#     return 'OK'
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -149,10 +149,6 @@ def getTotalSentMessageCount():
     r = requests.get('https://api.line.me/v2/bot/message/quota/consumption', headers=HEADER)
     print(r.json())
     return r.json()['totalUsage']
-
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 if __name__ == "__main__":
     app.debug = True
