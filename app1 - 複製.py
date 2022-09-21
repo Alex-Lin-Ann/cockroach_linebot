@@ -1,7 +1,7 @@
 from git import Repo
 import os
 
-dirfile = os.path.abspath('C:\Users\TibeMe_user\Desktop\cockroach_linebot_test') # code的文件位置，我默认将其存放在根目录下
+dirfile = os.path.abspath(r'C:\Users\TibeMe_user\Desktop\cockroach_linebot_test') # code的文件位置，我默认将其存放在根目录下
 repo = Repo(dirfile)
 
 g = repo.git
