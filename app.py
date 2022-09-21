@@ -46,9 +46,9 @@ def index():
                 text = events[0]["message"]["text"]
 
                 if text == "myname":
-                    payload["messages"] = [getNameEmojiMessage()]
+                    payload["messages"] = [getNameEmojiMessage(),getCockroachImageMessage()]
                 # elif text == "圖片":
-                    payload["messages"] = [getCockroachImageMessage()]
+                    # payload["messages"] = [getCockroachImageMessage()]
                 else:
                     payload["messages"] = [
                             {
