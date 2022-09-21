@@ -47,8 +47,6 @@ def index():
 
                 if text == "我的名":
                     payload["messages"] = [getNameEmojiMessage()]
-                elif text == "出去玩囉":
-                    payload["messages"] = [getPlayStickerMessage()]
                 elif text == "圖片":
                     payload["messages"] = [getCockroachImageMessage()]
                 elif text == "quoda":
@@ -71,14 +69,9 @@ def index():
                 action = data["action"]
                 if action == "get_near":
                     data["action"] = "get_detail"
-                    # payload["messages"] = [getCarouselMessage(data)]
                 elif action == "get_detail":
                     del data["action"]
-                    payload["messages"] = [getCockroachImageMessage()
-                                        #    getTaipei101LocationMessage(),
-                                        #    getMRTVideoMessage(),
-                                        #    getCallCarMessage(data)]
-                    ]
+                    payload["messages"] = [getCockroachImageMessage()]
                 replyMessage(payload)
 
     return 'OK'
