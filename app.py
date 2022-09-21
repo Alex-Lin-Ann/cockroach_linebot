@@ -50,10 +50,7 @@ def index():
                 elif text == "出去玩囉":
                     payload["messages"] = [getPlayStickerMessage()]
                 elif text == "圖片":
-                    payload["messages"] = [getCockroachImageMessage()
-                                        #    getTaipei101LocationMessage(),
-                                        #    getMRTVideoMessage()]
-                    ]
+                    payload["messages"] = [getCockroachImageMessage()]
                 elif text == "quoda":
                     payload["messages"] = [
                             {
@@ -61,42 +58,6 @@ def index():
                                 "text": getTotalSentMessageCount()
                             }
                         ]
-                # elif text == "今日確診人數":
-                #     payload["messages"] = [
-                #             {
-                #                 "type": "text",
-                #                 "text": getTodayCovid19Message()
-                #             }
-                #         ]
-                # elif text == "主選單":
-                #     payload["messages"] = [
-                #             {
-                #                 "type": "template",
-                #                 "altText": "This is a buttons template",
-                #                 "template": {
-                #                   "type": "buttons",
-                #                   "title": "Menu",
-                #                   "text": "Please select",
-                #                   "actions": [
-                #                       {
-                #                         "type": "message",
-                #                         "label": "我的名",
-                #                         "text": "我的名"
-                #                       },
-                #                     #   {
-                #                     #     "type": "message",
-                #                     #     "label": "今日確診人數",
-                #                     #     "text": "今日確診人數"
-                #                     #   },
-                #                       {
-                #                         "type": "uri",
-                #                         "label": "聯絡我",
-                #                         "uri": f"tel:{my_phone}"
-                #                       }
-                #                   ]
-                #               }
-                #             }
-                #         ]
                 else:
                     payload["messages"] = [
                             {
@@ -105,22 +66,6 @@ def index():
                             }
                         ]
                 replyMessage(payload)
-            # elif events[0]["message"]["type"] == "location":
-            #     title = events[0]["message"]["title"]
-            #     latitude = events[0]["message"]["latitude"]
-            #     longitude = events[0]["message"]["longitude"]
-            #     payload["messages"] = [getLocationConfirmMessage(title, latitude, longitude)]
-            #     replyMessage(payload)
-        # elif events[0]["type"] == "postback":
-        #     if "params" in events[0]["postback"]:
-        #         reservedTime = events[0]["postback"]["params"]["datetime"].replace("T", " ")
-        #         payload["messages"] = [
-        #                 {
-        #                     "type": "text",
-        #                     "text": F"已完成預約於{reservedTime}的叫車服務"
-        #                 }
-        #             ]
-                # replyMessage(payload)
             else:
                 data = json.loads(events[0]["postback"]["data"])
                 action = data["action"]
@@ -188,120 +133,12 @@ def getNameEmojiMessage():
     message["emojis"] = emojis_list
     return message
 
-
-# def getCarouselMessage(data):
-#     message = {
-#       "type": "template",
-#       "altText": "this is a image carousel template",
-#       "template": {
-#           "type": "image_carousel",
-#           "columns": [
-#               {
-#                 "imageUrl": F"{end_point}/static/taipei_1.jpeg",
-#                 "action": {
-#                   "type": "postback",
-#                   "label": "台北101",
-#                   "data": json.dumps(data)
-#                 }
-#               },
-#               {
-#                 "imageUrl": F"{end_point}/static/taipei_1.jpeg",
-#                 "action": {
-#                   "type": "postback",
-#                   "label": "台北101",
-#                   "data": json.dumps(data)
-#                 }
-#               }
-#           ]
-#           }
-#         }
-#     return message
-
-
-# def getLocationConfirmMessage(title, latitude, longitude):
-#     data = {'title': title, 'latitude': latitude, 'longitude': longitude,
-#             'action': 'get_near'}
-#     message = {
-#       "type": "template",
-#       "altText": "this is a confirm template",
-#       "template": {
-#           "type": "confirm",
-#           "text": f"確認是否搜尋 {title} 附近地點？",
-#           "actions": [
-#               {
-#                  "type": "postback",
-#                "label": "是",
-#                "data": json.dumps(data),
-#                },
-#               {
-#                 "type": "message",
-#                 "label": "否",
-#                 "text": "否"
-#               }
-#           ]
-#       }
-#     }
-#     return message
-
-
-# def getCallCarMessage(data):
-#     message = {
-#       "type": "template",
-#       "altText": "this is a template",
-#       "template": {
-#           "type": "buttons",
-#           "text": f"請選擇至 {data['title']} 預約叫車時間",
-#           "actions": [
-#               {
-#                "type": "datetimepicker",
-#                "label": "預約",
-#                "data": json.dumps(data),
-#                "mode": "datetime"
-#                }
-#           ]
-#       }
-#     }
-#     return message
-
-
 def getPlayStickerMessage():
     message = dict()
     message["type"] = "sticker"
     message["packageId"] = "446"
     message["stickerId"] = "1988"
     return message
-
-
-# def getTaipei101LocationMessage():
-#     message = {
-#       "type": "location",
-#       "title": "台北101",
-#       "address": "110台北市信義區市府路45號",
-#       "latitude": 25.034127,
-#       "longitude": 121.5618272
-#     }
-#     return message
-
-
-# def getMRTVideoMessage():
-#     message = {
-#       "type": "video",
-#       "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
-#       "previewImageUrl": F"{end_point}/static/taipei_1.jpeg"
-#     }
-#     return message
-
-
-# def getMRTSoundMessage():
-#     message = dict()
-#     message["type"] = "audio"
-#     message["originalContentUrl"] = F"{end_point}/static/mrt_sound.m4a"
-#     import audioread
-#     with audioread.audio_open('static/mrt_sound.m4a') as f:
-#         # totalsec contains the length in float
-#         totalsec = f.duration
-#     message["duration"] = totalsec * 1000
-#     return message
 
 
 def getCockroachImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
@@ -334,16 +171,6 @@ def getTotalSentMessageCount():
     r = requests.get('https://api.line.me/v2/bot/message/quota/consumption', headers=HEADER)
     print(r.json())
     return r.json()['totalUsage']
-
-
-# def getTodayCovid19Message():
-#     r = requests.get('https://covid-19.nchc.org.tw/api/covid19?CK=covid-19@nchc.org.tw&querydata=3001&limited=BGD', headers=HEADER)
-#     data = r.json()[0]
-#     date = data['a04']
-#     total_count = data['a05']
-#     count = data['a06']
-#     return F"日期：{date}, 人數：{count}, 確診總人數：{total_count}"
-
 
 def allowed_file(filename):
     return '.' in filename and \
