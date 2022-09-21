@@ -60,13 +60,13 @@ def index():
                                 "text": getTotalSentMessageCount()
                             }
                         ]
-                elif text == "今日確診人數":
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": getTodayCovid19Message()
-                            }
-                        ]
+                # elif text == "今日確診人數":
+                #     payload["messages"] = [
+                #             {
+                #                 "type": "text",
+                #                 "text": getTodayCovid19Message()
+                #             }
+                #         ]
                 elif text == "主選單":
                     payload["messages"] = [
                             {
@@ -82,11 +82,11 @@ def index():
                                         "label": "我的名",
                                         "text": "我的名"
                                       },
-                                      {
-                                        "type": "message",
-                                        "label": "今日確診人數",
-                                        "text": "今日確診人數"
-                                      },
+                                    #   {
+                                    #     "type": "message",
+                                    #     "label": "今日確診人數",
+                                    #     "text": "今日確診人數"
+                                    #   },
                                       {
                                         "type": "uri",
                                         "label": "聯絡我",
