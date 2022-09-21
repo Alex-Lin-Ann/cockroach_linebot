@@ -79,8 +79,8 @@ def index():
                                   "actions": [
                                       {
                                         "type": "message",
-                                        "label": "我的名字",
-                                        "text": "我的名字"
+                                        "label": "我的名",
+                                        "text": "我的名"
                                       },
                                       {
                                         "type": "message",
