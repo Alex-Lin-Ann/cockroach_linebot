@@ -67,35 +67,35 @@ def index():
                 #                 "text": getTodayCovid19Message()
                 #             }
                 #         ]
-                elif text == "主選單":
-                    payload["messages"] = [
-                            {
-                                "type": "template",
-                                "altText": "This is a buttons template",
-                                "template": {
-                                  "type": "buttons",
-                                  "title": "Menu",
-                                  "text": "Please select",
-                                  "actions": [
-                                      {
-                                        "type": "message",
-                                        "label": "我的名",
-                                        "text": "我的名"
-                                      },
-                                    #   {
-                                    #     "type": "message",
-                                    #     "label": "今日確診人數",
-                                    #     "text": "今日確診人數"
-                                    #   },
-                                      {
-                                        "type": "uri",
-                                        "label": "聯絡我",
-                                        "uri": f"tel:{my_phone}"
-                                      }
-                                  ]
-                              }
-                            }
-                        ]
+                # elif text == "主選單":
+                #     payload["messages"] = [
+                #             {
+                #                 "type": "template",
+                #                 "altText": "This is a buttons template",
+                #                 "template": {
+                #                   "type": "buttons",
+                #                   "title": "Menu",
+                #                   "text": "Please select",
+                #                   "actions": [
+                #                       {
+                #                         "type": "message",
+                #                         "label": "我的名",
+                #                         "text": "我的名"
+                #                       },
+                #                     #   {
+                #                     #     "type": "message",
+                #                     #     "label": "今日確診人數",
+                #                     #     "text": "今日確診人數"
+                #                     #   },
+                #                       {
+                #                         "type": "uri",
+                #                         "label": "聯絡我",
+                #                         "uri": f"tel:{my_phone}"
+                #                       }
+                #                   ]
+                #               }
+                #             }
+                #         ]
                 else:
                     payload["messages"] = [
                             {
