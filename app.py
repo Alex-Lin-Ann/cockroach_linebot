@@ -47,10 +47,10 @@ def index():
 
                 if text == "我的名":
                     payload["messages"] = [getNameEmojiMessage()]
-                elif text == "出去玩囉":
-                    payload["messages"] = [getPlayStickerMessage()]
+                # elif text == "出去玩囉":
+                #     payload["messages"] = [getPlayStickerMessage()]
                 elif text == "圖片":
-                    payload["messages"] = [getTaipei101ImageMessage()
+                    payload["messages"] = [getCockroachImageMessage()
                                         #    getTaipei101LocationMessage(),
                                         #    getMRTVideoMessage()]
                     ]
@@ -129,7 +129,7 @@ def index():
                     # payload["messages"] = [getCarouselMessage(data)]
                 elif action == "get_detail":
                     del data["action"]
-                    payload["messages"] = [getTaipei101ImageMessage()
+                    payload["messages"] = [getCockroachImageMessage()
                                         #    getTaipei101LocationMessage(),
                                         #    getMRTVideoMessage(),
                                         #    getCallCarMessage(data)]
@@ -264,12 +264,12 @@ def getNameEmojiMessage():
 #     return message
 
 
-def getPlayStickerMessage():
-    message = dict()
-    message["type"] = "sticker"
-    message["packageId"] = "446"
-    message["stickerId"] = "1988"
-    return message
+# def getPlayStickerMessage():
+#     message = dict()
+#     message["type"] = "sticker"
+#     message["packageId"] = "446"
+#     message["stickerId"] = "1988"
+#     return message
 
 
 # def getTaipei101LocationMessage():
@@ -304,7 +304,7 @@ def getPlayStickerMessage():
 #     return message
 
 
-def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
+def getCockroachImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
     return getImageMessage(originalContentUrl)
 
 
