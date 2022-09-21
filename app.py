@@ -195,7 +195,7 @@ def getCarouselMessage(data):
           "type": "image_carousel",
           "columns": [
               {
-                "imageUrl": F"{end_point}/static/cockroach.jpeg",
+                "imageUrl": F"{end_point}/static/taipei_101.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -203,7 +203,7 @@ def getCarouselMessage(data):
                 }
               },
               {
-                "imageUrl": F"{end_point}/static/cockroach.jpeg",
+                "imageUrl": F"{end_point}/static/taipei_101.jpeg",
                 "action": {
                   "type": "postback",
                   "label": "台北101",
@@ -285,7 +285,7 @@ def getMRTVideoMessage():
     message = {
       "type": "video",
       "originalContentUrl": F"{end_point}/static/taipei_101_video.mp4",
-      "previewImageUrl": F"{end_point}/static/cockroach.jpeg"
+      "previewImageUrl": F"{end_point}/static/taipei_101.jpeg"
     }
     return message
 
@@ -302,7 +302,7 @@ def getMRTSoundMessage():
     return message
 
 
-def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/cockroach.jpeg"):
+def getTaipei101ImageMessage(originalContentUrl=F"{end_point}/static/taipei_1.jpeg"):
     return getImageMessage(originalContentUrl)
 
 
