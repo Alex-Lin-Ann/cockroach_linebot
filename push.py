@@ -1,16 +1,24 @@
-from linebot import LineBotApi
-from linebot.models import TextSendMessage
-import time
+from linebot import LineBotApi, WebhookHandler
+from linebot.models import TextSendMessage, StickerSendMessage, ImageSendMessage, LocationSendMessage
 
-# 必須放上自己的Channel Access Token
-line_bot_api = LineBotApi('zYXfWsIEAgAiqGoU62iLIdiPDsIVsz5t1W0lr3urkwyemRmrfTZBCKauljVvoYqKFX71W08VEzNuIceqtoqWRBIiAefZAo8fKXJV9HgpxuCv+DXUIbVc5v8RwsMbRqb9J014bZrgo+e3TYZoPD3Y4AdB04t89/1O/w1cDnyilFU=')
-# 請填入您的ID
-yourID = '1657482618'
-# 主動推播訊息
-line_bot_api.push_message(yourID, 
-                          TextSendMessage(text='安安您好！早餐吃了嗎？'))
-# 用迴圈推播訊息
-for i in [1,2,3,4,5]:
-    line_bot_api.push_message(yourID, 
-                              TextSendMessage(text='我們來倒數：'+str(i)))
-    time.sleep(1)
+def pushmsg(request):
+  line_bot_api = LineBotApi('你的 access token')
+  try:
+    msg = request.args.get('msg')
+    if msg == '1':
+      line_bot_api.push_message('你的 user ID', TextSendMessage(text='hello'))
+    elif msg == '2':
+      line_bot_api.push_message('你的 user ID', StickerSendMessage(package_id=1, sticker_id=2))
+    elif msg == '3':
+      imgurl = 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png'
+      line_bot_api.push_message('你的 user ID', ImageSendMessage(original_content_url=imgurl, preview_image_url=imgurl))
+    elif msg == '4':
+      line_bot_api.push_message('你的 user ID', LocationSendMessage(title='總統府',
+                                                address='100台北市中正區重慶南路一段122號',
+                                                latitude='25.040319874750914',
+                                                longitude='121.51162883484746'))
+    else:
+      msg = 'ok'
+    return msg
+  except:
+    print('error')

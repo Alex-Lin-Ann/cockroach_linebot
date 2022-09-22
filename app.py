@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage, StickerSendMessage, ImageSendMessage, LocationSendMessage
 import requests
 import json
 import configparser
@@ -29,46 +29,69 @@ HEADER = {
 }
 
 
-@app.route("/", methods=['POST', 'GET'])
-def index():
-    if request.method == 'GET':
-        print('OK')
-        return 'ok'
-    body = request.json
-    events = body["events"]
-    print(body)
-    if "replyToken" in events[0]:
-        payload = dict()
-        replyToken = events[0]["replyToken"]
-        payload["replyToken"] = replyToken
-        if events[0]["type"] == "message":
-            if events[0]["message"]["type"] == "text":
-                text = events[0]["message"]["text"]
+# @app.route("/", methods=['POST', 'GET'])
+# def index():
+#     if request.method == 'GET':
+#         print('OK')
+#         return 'ok'
+#     body = request.json
+#     events = body["events"]
+#     print(body)
+#     if "replyToken" in events[0]:
+#         payload = dict()
+#         replyToken = events[0]["replyToken"]
+#         payload["replyToken"] = replyToken
+#         if events[0]["type"] == "message":
+#             if events[0]["message"]["type"] == "text":
+#                 text = events[0]["message"]["text"]
 
-                if text == "start":
-                    payload["messages"] = [getCockEmojiMessage(),
-                                    getNameEmojiMessage(),
-                                    getCockroachImageMessage()
-                                    ]
-                else:
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": text
-                            }
-                        ]
-                replyMessage(payload)
-            else:
-                data = json.loads(events[0]["postback"]["data"])
-                action = data["action"]
-                if action == "get_near":
-                    data["action"] = "get_detail"
-                elif action == "get_detail":
-                    del data["action"]
-                    payload["messages"] = [getCockroachImageMessage()]
-                replyMessage(payload)
+#                 if text == "start":
+#                     payload["messages"] = [getCockEmojiMessage(),
+#                                     getNameEmojiMessage(),
+#                                     getCockroachImageMessage()
+#                                     ]
+#                 else:
+#                     payload["messages"] = [
+#                             {
+#                                 "type": "text",
+#                                 "text": text
+#                             }
+#                         ]
+#                 replyMessage(payload)
+#             else:
+#                 data = json.loads(events[0]["postback"]["data"])
+#                 action = data["action"]
+#                 if action == "get_near":
+#                     data["action"] = "get_detail"
+#                 elif action == "get_detail":
+#                     del data["action"]
+#                     payload["messages"] = [getCockroachImageMessage()]
+#                 replyMessage(payload)
 
-    return 'OK'
+#     return 'OK'
+
+
+def pushmsg(request):
+  try:
+    msg = request.args.get('msg')
+    if msg == '1':
+      line_bot_api.push_message(my_line_id, TextSendMessage(text='hello'))
+    elif msg == '2':
+      line_bot_api.push_message(my_line_id, StickerSendMessage(package_id=1, sticker_id=2))
+    elif msg == '3':
+      imgurl = 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png'
+      line_bot_api.push_message(my_line_id, ImageSendMessage(original_content_url=imgurl, preview_image_url=imgurl))
+    elif msg == '4':
+      line_bot_api.push_message(my_line_id, LocationSendMessage(title='總統府',
+                                                address='100台北市中正區重慶南路一段122號',
+                                                latitude='25.040319874750914',
+                                                longitude='121.51162883484746'))
+    else:
+      msg = 'ok'
+    return msg
+  except:
+    print('error')
+
 
 @handler.add(MessageEvent, message=TextMessage)
 def pretty_echo(event):
@@ -82,10 +105,6 @@ def pretty_echo(event):
 def sendTextMessageToMe():
     pushMessage({})
     return 'OK'
-
-@handler.add(MessageEvent)
-def handle_message(event):
-	line_bot_api.push_message(my_line_id, TextSendMessage(text='Hello World!'))
 
 def getNameEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
