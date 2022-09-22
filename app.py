@@ -29,43 +29,46 @@ HEADER = {
 }
 
 
-@app.route("/", methods=['POST', 'GET'])
-def index():
-    if request.method == 'GET':
-        print('OK')
-        return 'ok'
-    body = request.json
-    events = body["events"]
-    print(body)
-    if "replyToken" in events[0]:
-        payload = dict()
-        replyToken = events[0]["replyToken"]
-        payload["replyToken"] = replyToken
-        if events[0]["type"] == "message":
-            if events[0]["message"]["type"] == "text":
-                text = events[0]["message"]["text"]
+# @app.route("/", methods=['POST', 'GET'])
+# def index():
+#     if request.method == 'GET':
+#         print('OK')
+#         return 'ok'
+#     body = request.json
+#     events = body["events"]
+#     print(body)
+#     if "replyToken" in events[0]:
+#         payload = dict()
+#         replyToken = events[0]["replyToken"]
+#         payload["replyToken"] = replyToken
+#         if events[0]["type"] == "message":
+#             if events[0]["message"]["type"] == "text":
+#                 text = events[0]["message"]["text"]
 
-                if text == "start":
-                    payload["messages"] = [pushmsg()]
-                else:
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": text
-                            }
-                        ]
-                replyMessage(payload)
-            else:
-                data = json.loads(events[0]["postback"]["data"])
-                action = data["action"]
-                if action == "get_near":
-                    data["action"] = "get_detail"
-                elif action == "get_detail":
-                    del data["action"]
-                    payload["messages"] = [getCockroachImageMessage()]
-                replyMessage(payload)
+#                 if text == "start":
+#                     payload["messages"] = [getCockEmojiMessage(),
+#                                     getNameEmojiMessage(),
+#                                     getCockroachImageMessage()
+#                                     ]
+#                 else:
+#                     payload["messages"] = [
+#                             {
+#                                 "type": "text",
+#                                 "text": text
+#                             }
+#                         ]
+#                 replyMessage(payload)
+#             else:
+#                 data = json.loads(events[0]["postback"]["data"])
+#                 action = data["action"]
+#                 if action == "get_near":
+#                     data["action"] = "get_detail"
+#                 elif action == "get_detail":
+#                     del data["action"]
+#                     payload["messages"] = [getCockroachImageMessage()]
+#                 replyMessage(payload)
 
-    return 'OK'
+#     return 'OK'
 
 
 def pushmsg(request):
