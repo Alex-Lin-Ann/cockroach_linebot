@@ -45,19 +45,19 @@ def index():
             if events[0]["message"]["type"] == "text":
                 text = events[0]["message"]["text"]
 
-                # if text == "start":
-                payload["messages"] = [getCockEmojiMessage(),
+                if text == "start":
+                    payload["messages"] = [getCockEmojiMessage(),
                                     getNameEmojiMessage(),
                                     getCockroachImageMessage()
                                     ]
-                # else:
-                    # payload["messages"] = [
-                    #         {
-                    #             "type": "text",
-                    #             "text": text
-                    #         }
-                    #     ]
-                pushMessage(payload)
+                else:
+                    payload["messages"] = [
+                            {
+                                "type": "text",
+                                "text": text
+                            }
+                        ]
+                replyMessage(payload)
             else:
                 data = json.loads(events[0]["postback"]["data"])
                 action = data["action"]
@@ -66,7 +66,7 @@ def index():
                 elif action == "get_detail":
                     del data["action"]
                     payload["messages"] = [getCockroachImageMessage()]
-                pushMessage(payload)
+                replyMessage(payload)
 
     return 'OK'
 
@@ -83,6 +83,9 @@ def sendTextMessageToMe():
     pushMessage({})
     return 'OK'
 
+@handler.add(MessageEvent)
+def handle_message(event):
+	line_bot_api.push_message(my_line_id, TextSendMessage(text='Hello World!'))
 
 def getNameEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -106,7 +109,7 @@ def getNameEmojiMessage():
 def getCockEmojiMessage():
     lookUpStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     productId = "5ac21a8c040ab15980c9b43f"
-    name = "Find"
+    name = "FindOut"
     message = dict()
     message["type"] = "text"
     message["text"] = "".join("$" for r in range(len(name)))
