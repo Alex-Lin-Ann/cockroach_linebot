@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageSendMessage
+from linebot.models import MessageEvent, TextMessage, TextSendMessage
 import requests
 import json
 import configparser
@@ -45,19 +45,19 @@ def index():
             if events[0]["message"]["type"] == "text":
                 text = events[0]["message"]["text"]
 
-                if text == "start":
-                    payload["messages"] = [getCockEmojiMessage(),
-                                        getNameEmojiMessage(),
-                                        getCockroachImageMessage()
-                                        ]
-                else:
-                    payload["messages"] = [
-                            {
-                                "type": "text",
-                                "text": text
-                            }
-                        ]
-                replyMessage(payload)
+                # if text == "start":
+                payload["messages"] = [getCockEmojiMessage(),
+                                    getNameEmojiMessage(),
+                                    getCockroachImageMessage()
+                                    ]
+                # else:
+                    # payload["messages"] = [
+                    #         {
+                    #             "type": "text",
+                    #             "text": text
+                    #         }
+                    #     ]
+                pushMessage(payload)
             else:
                 data = json.loads(events[0]["postback"]["data"])
                 action = data["action"]
@@ -66,7 +66,7 @@ def index():
                 elif action == "get_detail":
                     del data["action"]
                     payload["messages"] = [getCockroachImageMessage()]
-                replyMessage(payload)
+                pushMessage(payload)
 
     return 'OK'
 
